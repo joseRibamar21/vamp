@@ -1,0 +1,85 @@
+{
+    "game": [
+        {
+            "id": 1,
+            "imagePath": null,
+            "question": "Olá, tudo Bem?",
+            "answers": [
+                {
+                    "title": "Tudo simm...?",
+                    "route": 2
+                },
+                {
+                    "title": "Não, hj ta um ó",
+                    "route": 3
+                },
+                {
+                    "id": 2,
+                    "title": "Oq ti importa?",
+                    "route": 4
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "imagePath": null,
+            "question": "Olá, tudo Bem?",
+            "answers": [
+                {
+                    "title": "Tudo simm...?",
+                    "route": 0
+                },
+                {
+                    "title": "Não, hj ta um ó",
+                    "route": 0
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "imagePath": null,
+            "question": "Olá, tudo Bem?",
+            "answers": [
+                {
+                    "title": "Tudo simm...?",
+                    "route": 0
+                },
+                {
+                    "id": 2,
+                    "title": "Não, hj ta um ó",
+                    "route": 0
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "imagePath": null,
+            "question": "COME TORTAAAAAAA!!!!!",
+            "answers": [
+                {
+                    "title": "Não",
+                    "route": 1
+                },
+                {
+                    "title": "Já comi otário",
+                    "route": 5
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "imagePath": null,
+            "question": "Chata 😒",
+            "answers": [
+                {
+                    "title": "Sou mesmo!",
+                    "route": 1
+                },
+                {
+                    "title": "Brinks gatinho",
+                    "route": 1
+                }
+            ]
+        }
+    ]
+}
