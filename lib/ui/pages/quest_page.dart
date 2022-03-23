@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vamp/mock/game_mock.dart';
-import 'package:vamp/models/models.dart';
+
+import '../../mock/game_mock.dart';
+import '../../models/models.dart';
 
 class QuestPage extends StatefulWidget {
   const QuestPage({Key? key}) : super(key: key);
@@ -9,21 +10,68 @@ class QuestPage extends StatefulWidget {
   State<QuestPage> createState() => _QuestPageState();
 }
 
-class _QuestPageState extends State<QuestPage> {
+class _QuestPageState extends State<QuestPage>
+    with SingleTickerProviderStateMixin {
+  AnimationController? animationController;
+  Animation<double>? animation;
   GameMock? gameMock = GameMock();
   Game? game;
   int index = 0;
 
   @override
   void initState() {
-    game = gameMock?.getGame();
     super.initState();
+    animationController =
+        AnimationController(duration: const Duration(seconds: 1), vsync: this);
+
+    animation =
+        CurvedAnimation(parent: animationController!, curve: Curves.easeOut);
+    game = gameMock?.getGame();
+  }
+
+  @override
+  void dispose() {
+    animationController?.dispose();
+    super.dispose();
+  }
+
+  void _newQuest(int i) async {
+    var t = animationController!.reverse();
+    await t.whenComplete(() => {
+          setState(() {
+            index = i;
+          }),
+        });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
+      body: Builder(builder: (context) {
+        animationController!.forward();
+        return SafeArea(
+          child: FadeTransition(
+            opacity: animation!,
+            child: QuestBody(
+              nextQuest: _newQuest,
+              question: game!.game![index],
+            ),
+          ),
+        );
+      }),
+    );
+  }
+}
+
+class QuestBody extends StatelessWidget {
+  final Function nextQuest;
+  final Question question;
+  const QuestBody({Key? key, required this.nextQuest, required this.question})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
       children: [
         const Expanded(
           child: CircleAvatar(
@@ -32,35 +80,35 @@ class _QuestPageState extends State<QuestPage> {
           ),
         ),
         Expanded(
-            child: Text(
-          game!.game![index].question.toString(),
-          style: const TextStyle(fontSize: 25),
-          textAlign: TextAlign.center,
-        )),
+          child: Text(
+            question.question.toString(),
+            style: const TextStyle(fontSize: 25),
+            textAlign: TextAlign.center,
+          ),
+        ),
         Expanded(
           flex: 2,
           child: Center(
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: game!.game![index].answers!.length.toInt(),
+              itemCount: question.answers!.length.toInt(),
               itemBuilder: (context, i) => Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
                   height: 70,
                   child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          index = game!.game![index].answers![i].route!.toInt();
-                        });
-                      },
-                      child: Text(
-                          game!.game![index].answers![i].title.toString())),
+                    onPressed: () =>
+                        nextQuest(question.answers![i].route!.toInt()),
+                    child: Text(
+                      question.answers![i].title.toString(),
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
         )
       ],
-    ));
+    );
   }
 }

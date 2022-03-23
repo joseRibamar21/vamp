@@ -60,7 +60,15 @@ class GameMock {
           {"title": "Se confessar", "route": 1},
           {"title": "Cantar pá God", "route": 1}
         ]
-      }
+      },
+      {
+        "id": 6,
+        "imagePath": null,
+        "question": "Vou ti animar mesmo assim",
+        "timer": 2000,
+        "route": 5,
+        "answers": []
+      },
     ]
   };
 }
