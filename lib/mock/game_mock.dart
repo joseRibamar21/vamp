@@ -36,7 +36,7 @@ class GameMock {
       {
         "id": 3,
         "imagePath": null,
-        "question": "COME TORTAAAAAAA!!!!!",
+        "question": "Come Tortaaaa!!!!!",
         "answers": [
           {"title": "Não", "route": 1},
           {"title": "Já comi otário", "route": 4}

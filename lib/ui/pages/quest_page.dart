@@ -47,6 +47,7 @@ class _QuestPageState extends State<QuestPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF8C1B44),
       body: Builder(builder: (context) {
         animationController!.forward();
         return SafeArea(
@@ -73,17 +74,24 @@ class QuestBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Expanded(
-          child: CircleAvatar(
-            radius: 60,
-            backgroundColor: Colors.amber,
-          ),
-        ),
+        question.imagePath != null
+            ? const Expanded(
+                child: CircleAvatar(
+                  radius: 60,
+                  backgroundColor: Colors.amber,
+                ),
+              )
+            : SizedBox(),
         Expanded(
-          child: Text(
-            question.question.toString(),
-            style: const TextStyle(fontSize: 25),
-            textAlign: TextAlign.center,
+          child: Center(
+            child: Text(
+              question.question.toString(),
+              style: const TextStyle(
+                  fontSize: 55,
+                  color: Colors.white,
+                  fontFamily: "LavishlyYours"),
+              textAlign: TextAlign.center,
+            ),
           ),
         ),
         Expanded(
@@ -97,10 +105,17 @@ class QuestBody extends StatelessWidget {
                 child: SizedBox(
                   height: 70,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50)),
+                        onPrimary: Colors.red,
+                        elevation: 5,
+                        primary: const Color(0xFF40253B)),
                     onPressed: () =>
                         nextQuest(question.answers![i].route!.toInt()),
                     child: Text(
                       question.answers![i].title.toString(),
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
