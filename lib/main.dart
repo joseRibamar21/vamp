@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vamp/ui/pages/home_page.dart';
 import '../ui/pages/pages.dart';
 
 void main() {
@@ -15,7 +16,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       initialRoute: "/quest",
-      routes: {"/quest": (context) => const QuestPage()},
+      routes: {
+        "/quest": (context) => const QuestPage(),
+        "/home": ((context) => const HomePage())
+      },
     );
   }
 }

@@ -48,6 +48,20 @@ class _QuestPageState extends State<QuestPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF8C1B44),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF8C1B44),
+        elevation: 0,
+        toolbarHeight: 40,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed('/home');
+            },
+            icon: const Icon(
+              Icons.home_rounded,
+              size: 40,
+              color: Colors.white,
+            )),
+      ),
       body: Builder(builder: (context) {
         animationController!.forward();
         return SafeArea(
@@ -75,19 +89,17 @@ class QuestBody extends StatelessWidget {
     return Column(
       children: [
         question.imagePath != null
-            ? const Expanded(
-                child: CircleAvatar(
-                  radius: 60,
-                  backgroundColor: Colors.amber,
-                ),
+            ? const SizedBox(
+                height: 90,
+                width: 200,
               )
-            : SizedBox(),
+            : const SizedBox(),
         Expanded(
           child: Center(
             child: Text(
               question.question.toString(),
               style: const TextStyle(
-                  fontSize: 55,
+                  fontSize: 60,
                   color: Colors.white,
                   fontFamily: "LavishlyYours"),
               textAlign: TextAlign.center,
