@@ -35,7 +35,8 @@ class HomePage extends StatelessWidget {
                       text: "Galeria", f: () => Navigator.pop(context)),
                   const SizedBox(height: 20),
                   CustomButtom(
-                      text: "Créditos", f: () => Navigator.pop(context)),
+                      text: "Créditos",
+                      f: () => Navigator.of(context).pushNamed('/credit')),
                 ],
               )),
         ],

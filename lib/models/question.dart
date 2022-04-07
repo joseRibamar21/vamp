@@ -17,22 +17,12 @@ class Question {
       required this.answers});
 
   factory Question.fromJson(Map<String, dynamic> json) {
-    var t = -1;
-    var r = -1;
-
-    if (json.containsKey(json["timer"])) {
-      t = json["timer"];
-    }
-    if (json.containsKey(json["route"])) {
-      r = json["route"];
-    }
-
     return Question(
         id: json["id"],
         imagePath: json['imagePath'],
         question: json['question'],
-        timer: t,
-        route: r,
+        timer: json["timer"],
+        route: json["route"],
         answers:
             json["answers"].map<Answer>((e) => Answer.fromJson(e)).toList());
   }

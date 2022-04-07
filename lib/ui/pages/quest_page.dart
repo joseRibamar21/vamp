@@ -86,56 +86,67 @@ class QuestBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        question.imagePath != null
-            ? const SizedBox(
-                height: 90,
-                width: 200,
-              )
-            : const SizedBox(),
-        Expanded(
-          child: Center(
-            child: Text(
-              question.question.toString(),
-              style: const TextStyle(
-                  fontSize: 60,
-                  color: Colors.white,
-                  fontFamily: "LavishlyYours"),
-              textAlign: TextAlign.center,
+    return Builder(builder: (context) {
+      if (question.timer != 0) {
+        Future.delayed(Duration(milliseconds: question.timer)).then(
+          (value) => nextQuest(question.route.toInt()),
+        );
+      }
+      return SafeArea(
+        child: Column(
+          children: [
+            question.imagePath != null
+                ? SizedBox(
+                    height: 140,
+                    width: double.maxFinite,
+                    child: Image.asset(
+                        question.imagePath ?? "lib/ui/images/img_2.jpg"))
+                : const SizedBox(),
+            Expanded(
+              child: Center(
+                child: Text(
+                  question.question.toString(),
+                  style: const TextStyle(
+                      fontSize: 40,
+                      color: Colors.white,
+                      fontFamily: "LavishlyYours"),
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ),
-          ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Center(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: question.answers!.length.toInt(),
-              itemBuilder: (context, i) => Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: 70,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50)),
-                        onPrimary: Colors.red,
-                        elevation: 5,
-                        primary: const Color(0xFF40253B)),
-                    onPressed: () =>
-                        nextQuest(question.answers![i].route!.toInt()),
-                    child: Text(
-                      question.answers![i].title.toString(),
-                      style: const TextStyle(color: Colors.white),
+            Expanded(
+              flex: 2,
+              child: Center(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: question.answers!.length.toInt(),
+                  itemBuilder: (context, i) => Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                    child: SizedBox(
+                      height: 70,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50)),
+                            onPrimary: Colors.red,
+                            elevation: 5,
+                            primary: const Color(0xFF40253B)),
+                        onPressed: () =>
+                            nextQuest(question.answers![i].route!.toInt()),
+                        child: Text(
+                          question.answers![i].title.toString(),
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ),
-        )
-      ],
-    );
+            )
+          ],
+        ),
+      );
+    });
   }
 }
